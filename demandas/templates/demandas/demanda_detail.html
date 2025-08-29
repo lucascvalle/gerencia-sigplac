@@ -1,0 +1,32 @@
+{% extends 'demandas/base.html' %}
+
+{% block title %}Detalhes da Demanda{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">{{ object.atividade }}</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Data de Inserção:</strong> {{ object.data_insercao|date:"d/m/Y H:i" }}</p>
+            <p><strong>Data de Início:</strong> {{ object.data_inicio|date:"d/m/Y H:i"|default:"--" }}</p>
+            <p><strong>Data de Término:</strong> {{ object.data_termino|date:"d/m/Y H:i"|default:"--" }}</p>
+            <p><strong>Situação:</strong> {{ object.get_situacao_display }}</p>
+            <p><strong>Responsável:</strong> {{ object.responsavel|default:"N/A" }}</p>
+            <p><strong>Supervisor:</strong> {{ object.supervisor|default:"N/A" }}</p>
+            
+            <hr>
+            <h5>Andamento Detalhado</h5>
+            <p>{{ object.andamento_detalhado|linebreaks|default:"Nenhum detalhe fornecido." }}</p>
+            
+            <hr>
+            <h5>Observações</h5>
+            <p>{{ object.observacoes|linebreaks|default:"Nenhuma observação." }}</p>
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'demanda-update' object.pk %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'demanda-delete' object.pk %}" class="btn btn-danger">Deletar</a>
+            <a href="{% url 'demanda-list' %}" class="btn btn-secondary">Voltar para a Lista</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'demandas/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Demandas</h5>
+                    <p class="card-text fs-4">{{ total_demandas }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Pendentes</h5>
+                    <p class="card-text fs-4">{{ demandas_pendentes }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Em Andamento</h5>
+                    <p class="card-text fs-4">{{ demandas_em_andamento }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Concluídas</h5>
+                    <p class="card-text fs-4">{{ demandas_concluidas }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <a href="{% url 'demanda-list' %}" class="btn btn-primary btn-lg">Visualizar Todas as Demandas</a>
+
+{% endblock %}

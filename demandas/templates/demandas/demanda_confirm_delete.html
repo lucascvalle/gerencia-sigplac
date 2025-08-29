@@ -1,0 +1,18 @@
+{% extends 'demandas/base.html' %}
+
+{% block title %}Confirmar Deleção{% endblock %}
+
+{% block content %}
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Confirmar Deleção</h4>
+        <p>Você tem certeza que deseja deletar a demanda: <strong>{{ object.atividade }}</strong>?</p>
+        <hr>
+        <p class="mb-0">Esta ação não pode ser desfeita.</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, deletar</button>
+        <a href="{% url 'demanda-detail' object.pk %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

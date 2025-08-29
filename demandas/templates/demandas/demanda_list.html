@@ -1,0 +1,55 @@
+{% extends 'demandas/base.html' %}
+
+{% block title %}Lista de Demandas{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Lista de Demandas</h1>
+        <a href="{% url 'demanda-create' %}" class="btn btn-primary">Adicionar Demanda</a>
+    </div>
+
+    <form method="get" class="mb-4 p-3 border rounded">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label for="{{ filter.form.situacao.id_for_label }}" class="form-label">{{ filter.form.situacao.label }}</label>
+                {{ filter.form.situacao }}
+            </div>
+            <div class="col-md-3">
+                <label for="{{ filter.form.responsavel.id_for_label }}" class="form-label">{{ filter.form.responsavel.label }}</label>
+                {{ filter.form.responsavel }}
+            </div>
+            <div class="col-md-3">
+                <label for="{{ filter.form.supervisor.id_for_label }}" class="form-label">{{ filter.form.supervisor.label }}</label>
+                {{ filter.form.supervisor }}
+            </div>
+            <div class="col-md-3">
+                <label for="{{ filter.form.data_insercao_after.id_for_label }}" class="form-label">De:</label>
+                <input type="text" name="{{ filter.form.data_insercao_after.name }}" class="form-control datepicker" id="{{ filter.form.data_insercao_after.id_for_label }}" value="{{ request.GET.data_insercao_after|default:'' }}">
+            </div>
+            <div class="col-md-3">
+                <label for="{{ filter.form.data_insercao_before.id_for_label }}" class="form-label">Até:</label>
+                <input type="text" name="{{ filter.form.data_insercao_before.name }}" class="form-control datepicker" id="{{ filter.form.data_insercao_before.id_for_label }}" value="{{ request.GET.data_insercao_before|default:'' }}">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-info w-100">Filtrar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="list-group">
+        {% for demanda in filter.qs %}
+            <a href="{% url 'demanda-detail' demanda.pk %}" class="list-group-item list-group-item-action status-{{ demanda.situacao }}">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ demanda.atividade }}</h5>
+                    <small>{{ demanda.data_insercao|date:"d/m/Y H:i" }}</small>
+                </div>
+                <p class="mb-1"><strong>Situação:</strong> {{ demanda.get_situacao_display }}</p>
+                <small><strong>Responsável:</strong> {{ demanda.responsavel|default:"N/A" }}</small>
+            </a>
+        {% empty %}
+            <div class="alert alert-info" role="alert">
+                Nenhuma demanda encontrada.
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
