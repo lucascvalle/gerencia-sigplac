@@ -3,7 +3,11 @@
     {
       "src": "gerencia/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.9",
+        "build": "python manage.py collectstatic --no-input && python manage.py migrate --no-input"
+      }
     }
   ],
   "routes": [
