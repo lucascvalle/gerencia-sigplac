@@ -1,19 +1,18 @@
 {
   "builds": [
     {
-      "src": "gerencia/wsgi.py",
+      "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
-        "runtime": "python3.9",
-        "build": "python manage.py collectstatic --no-input && python manage.py migrate --no-input"
+        "runtime": "python3.9"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "gerencia/wsgi.py"
+      "dest": "api/index.py"
     }
   ]
 }
