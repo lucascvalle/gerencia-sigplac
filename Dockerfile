@@ -11,6 +11,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copia o código do projeto para o diretório de trabalho.
 COPY . .
 
+# Coleta os arquivos estáticos.
+RUN python manage.py collectstatic --no-input
+
+# Executa as migrações do banco de dados.
+RUN python manage.py migrate --no-input
+
 # Expõe a porta em que o aplicativo será executado.
 EXPOSE 8000
 
