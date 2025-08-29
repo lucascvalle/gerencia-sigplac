@@ -6,7 +6,8 @@
       "config": {
         "maxLambdaSize": "15mb",
         "runtime": "python3.9",
-        "build": "python manage.py collectstatic --no-input && python manage.py migrate --no-input"
+        "build": "python manage.py collectstatic --no-input && python manage.py migrate --no-input",
+        "handler": "gerencia.wsgi.application"
       }
     }
   ],
