@@ -3,3 +3,5 @@ gunicorn
 django-crispy-forms
 crispy-bootstrap5
 django-filter
+whitenoise
+dj-database-url
