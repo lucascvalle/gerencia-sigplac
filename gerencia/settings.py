@@ -30,11 +30,8 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
+    'gerencia-sigplac.onrender.com',
 ]
-
-VERCEL_URL = os.environ.get('VERCEL_URL')
-if VERCEL_URL:
-    ALLOWED_HOSTS.append(VERCEL_URL.replace("https://", ""))
 
 
 # Application definition
