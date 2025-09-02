@@ -7,6 +7,8 @@ from .views import (
     DemandaDeleteView
 )
 
+app_name = 'demandas'
+
 urlpatterns = [
     path('', DemandaListView.as_view(), name='demanda-list'),
     path('<int:pk>/', DemandaDetailView.as_view(), name='demanda-detail'),
