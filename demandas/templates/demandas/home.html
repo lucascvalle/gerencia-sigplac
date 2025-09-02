@@ -6,42 +6,74 @@
     <h1 class="mb-4">Dashboard</h1>
 
     <div class="row">
-        <div class="col-md-3 mb-4">
-            <div class="card text-white bg-primary">
+        <!-- Card de Demandas -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Total de Demandas</h5>
-                    <p class="card-text fs-4">{{ total_demandas }}</p>
+                    <h5 class="card-title mb-3">Gerenciamento de Demandas</h5>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <div class="card text-white bg-primary">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Total</h6>
+                                    <p class="card-text fs-4">{{ total_demandas }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="card text-white bg-warning">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Pendentes</h6>
+                                    <p class="card-text fs-4">{{ demandas_pendentes }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card text-dark bg-info">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Em Andamento</h6>
+                                    <p class="card-text fs-4">{{ demandas_em_andamento }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card text-white bg-success">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Concluídas</h6>
+                                    <p class="card-text fs-4">{{ demandas_concluidas }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 text-center">
+                    <a href="{% url 'demanda-list' %}" class="btn btn-primary">Visualizar Todas as Demandas</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-4">
-            <div class="card text-white bg-warning">
+
+        <!-- Card de Reuniões -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Pendentes</h5>
-                    <p class="card-text fs-4">{{ demandas_pendentes }}</p>
+                    <h5 class="card-title mb-3">Atas de Reunião</h5>
+                    <p class="card-text">Acesse e gerencie as atas e os pontos discutidos nas reuniões.</p>
+                    <div class="text-center my-4">
+                        <p class="mb-1">Última reunião registrada em:</p>
+                        <h4 class="display-6">
+                            {% if ultima_reuniao_data %}
+                                {{ ultima_reuniao_data|date:"d/m/Y" }}
+                            {% else %}
+                                <small class="text-muted">Nenhuma</small>
+                            {% endif %}
+                        </h4>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card text-white bg-info">
-                <div class="card-body">
-                    <h5 class="card-title">Em Andamento</h5>
-                    <p class="card-text fs-4">{{ demandas_em_andamento }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5 class="card-title">Concluídas</h5>
-                    <p class="card-text fs-4">{{ demandas_concluidas }}</p>
+                <div class="card-footer bg-transparent border-top-0 text-center">
+                    <a href="{% url 'reunioes:reuniao_list' %}" class="btn btn-secondary">Visualizar Todas as Atas</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <hr class="my-4">
-
-    <a href="{% url 'demanda-list' %}" class="btn btn-primary btn-lg">Visualizar Todas as Demandas</a>
 
 {% endblock %}

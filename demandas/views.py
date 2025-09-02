@@ -11,6 +11,7 @@ from django.views.generic import (
 from .models import Demanda
 from .forms import DemandaCreateForm, DemandaUpdateForm
 from .filters import DemandaFilter
+from reunioes.models import Reuniao
 
 class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'demandas/home.html'
@@ -21,6 +22,10 @@ class HomePageView(LoginRequiredMixin, TemplateView):
         context['demandas_pendentes'] = Demanda.objects.filter(situacao='pendente').count()
         context['demandas_em_andamento'] = Demanda.objects.filter(situacao='em_andamento').count()
         context['demandas_concluidas'] = Demanda.objects.filter(situacao='concluido').count()
+
+        ultima_reuniao = Reuniao.objects.order_by('-data').first()
+        context['ultima_reuniao_data'] = ultima_reuniao.data if ultima_reuniao else None
+
         return context
 
 class DemandaListView(LoginRequiredMixin, ListView):
