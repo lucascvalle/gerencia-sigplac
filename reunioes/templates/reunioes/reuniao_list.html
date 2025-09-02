@@ -1,0 +1,48 @@
+{% extends "reunioes/base.html" %}
+
+{% block title %}Lista de Reuniões - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Lista de Reuniões</h1>
+    <a href="#" class="btn btn-primary">Nova Reunião</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            {% for reuniao in reunioes %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{{ reuniao.get_absolute_url }}">{{ reuniao.titulo }}</a>
+                    <small>{{ reuniao.data|date:"d/m/Y" }}</small>
+                </li>
+            {% empty %}
+                <li class="list-group-item">Nenhuma reunião encontrada.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% if is_paginated %}
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% endif %}
+
+        <li class="page-item active" aria-current="page">
+            <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Próxima</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

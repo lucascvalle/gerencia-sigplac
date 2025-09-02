@@ -1,0 +1,52 @@
+{% extends "reunioes/base.html" %}
+
+{% block title %}{{ reuniao.titulo }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        <h2>{{ reuniao.titulo }}</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>Data:</strong> {{ reuniao.data|date:"d/m/Y" }}</p>
+        {% if reuniao.local %}<p><strong>Local:</strong> {{ reuniao.local }}</p>{% endif %}
+        {% if reuniao.participantes %}<p><strong>Participantes:</strong> {{ reuniao.participantes|linebreaksbr }}</p>{% endif %}
+    </div>
+    <div class="card-footer text-end">
+        <a href="#" class="btn btn-secondary">Editar Reunião</a>
+    </div>
+</div>
+
+<h3>Ata da Reunião</h3>
+
+{% for topico in topicos %}
+<div class="card mb-3">
+    <div class="card-header">
+        <h4>{{ topico.titulo }}</h4>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for ponto in topico.pontos.all %}
+        <li class="list-group-item">
+            <p>{{ ponto.descricao|linebreaksbr }}</p>
+            {% if ponto.demanda %}
+                <small class="d-block">
+                    <strong>Demanda associada:</strong> 
+                    <a href="#">{{ ponto.demanda.atividade }}</a>
+                    <span class="badge bg-info text-dark">{{ ponto.status }}</span>
+                </small>
+            {% else %}
+                <small class="text-muted">Sem demanda associada.</small>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li class="list-group-item">Nenhum ponto de discussão para este tópico.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% empty %}
+<p>Nenhum tópico para esta reunião.</p>
+{% endfor %}
+
+<a href="{% url 'reunioes:reuniao_list' %}" class="btn btn-outline-secondary mt-3">Voltar para a lista</a>
+
+{% endblock %}
