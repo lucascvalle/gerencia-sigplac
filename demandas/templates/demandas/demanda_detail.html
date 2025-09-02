@@ -24,9 +24,9 @@
             <p>{{ object.observacoes|linebreaks|default:"Nenhuma observação." }}</p>
         </div>
         <div class="card-footer text-end">
-            <a href="{% url 'demanda-update' object.pk %}" class="btn btn-warning">Editar</a>
-            <a href="{% url 'demanda-delete' object.pk %}" class="btn btn-danger">Deletar</a>
-            <a href="{% url 'demanda-list' %}" class="btn btn-secondary">Voltar para a Lista</a>
+            <a href="{% url 'demandas:demanda-update' object.pk %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'demandas:demanda-delete' object.pk %}" class="btn btn-danger">Deletar</a>
+            <a href="{% url 'demandas:demanda-list' %}" class="btn btn-secondary">Voltar para a Lista</a>
         </div>
     </div>
 {% endblock %}

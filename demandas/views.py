@@ -52,7 +52,7 @@ class DemandaCreateView(LoginRequiredMixin, CreateView):
     model = Demanda
     form_class = DemandaCreateForm
     template_name = 'demandas/demanda_form.html'
-    success_url = reverse_lazy('demanda-list')
+    success_url = reverse_lazy('demandas:demanda-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,7 +63,7 @@ class DemandaUpdateView(LoginRequiredMixin, UpdateView):
     model = Demanda
     form_class = DemandaUpdateForm
     template_name = 'demandas/demanda_form.html'
-    success_url = reverse_lazy('demanda-list')
+    success_url = reverse_lazy('demandas:demanda-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -73,4 +73,4 @@ class DemandaUpdateView(LoginRequiredMixin, UpdateView):
 class DemandaDeleteView(LoginRequiredMixin, DeleteView):
     model = Demanda
     template_name = 'demandas/demanda_confirm_delete.html'
-    success_url = reverse_lazy('demanda-list')
+    success_url = reverse_lazy('demandas:demanda-list')

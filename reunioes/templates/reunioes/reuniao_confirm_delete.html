@@ -1,0 +1,18 @@
+{% extends "reunioes/base.html" %}
+
+{% block title %}Confirmar Exclusão - Gerenciador de Reuniões{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Confirmar Exclusão</h1>
+    <div class="card bg-light border-danger">
+        <div class="card-body">
+            <p class="card-text">Você tem certeza que deseja deletar a reunião <strong>"{{ reuniao.titulo }}"</strong> que ocorreu em <strong>{{ reuniao.data|date:"d/m/Y" }}</strong>?</p>
+            <p class="text-danger">Esta ação não pode ser desfeita. Todos os tópicos e pontos associados a esta reunião também serão excluídos.</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sim, tenho certeza</button>
+                <a href="{{ reuniao.get_absolute_url }}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

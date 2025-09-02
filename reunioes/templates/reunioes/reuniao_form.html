@@ -1,0 +1,20 @@
+{% extends "reunioes/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }} - Gerenciador de Reuniões{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">{{ title }}</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="{% url 'reunioes:reuniao_list' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

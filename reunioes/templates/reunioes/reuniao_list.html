@@ -5,7 +5,7 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>Lista de Reuniões</h1>
-    <a href="#" class="btn btn-primary">Nova Reunião</a>
+    <a href="{% url 'reunioes:reuniao_create' %}" class="btn btn-primary">Nova Reunião</a>
 </div>
 
 <div class="card">

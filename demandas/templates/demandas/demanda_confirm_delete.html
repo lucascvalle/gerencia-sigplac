@@ -13,6 +13,6 @@
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Sim, deletar</button>
-        <a href="{% url 'demanda-detail' object.pk %}" class="btn btn-secondary">Cancelar</a>
+        <a href="{% url 'demandas:demanda-detail' object.pk %}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

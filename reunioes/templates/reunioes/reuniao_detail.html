@@ -13,35 +13,52 @@
         {% if reuniao.participantes %}<p><strong>Participantes:</strong> {{ reuniao.participantes|linebreaksbr }}</p>{% endif %}
     </div>
     <div class="card-footer text-end">
-        <a href="#" class="btn btn-secondary">Editar Reunião</a>
+        <a href="{% url 'reunioes:reuniao_update' reuniao.pk %}" class="btn btn-secondary">Editar Reunião</a>
+        <a href="{% url 'reunioes:reuniao_delete' reuniao.pk %}" class="btn btn-danger">Excluir Reunião</a>
     </div>
 </div>
 
-<h3>Ata da Reunião</h3>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Ata da Reunião</h3>
+    <a href="{% url 'reunioes:topico_create' reuniao.pk %}" class="btn btn-primary">Novo Tópico</a>
+</div>
 
 {% for topico in topicos %}
 <div class="card mb-3">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
         <h4>{{ topico.titulo }}</h4>
+        <div>
+            <a href="{% url 'reunioes:topico_update' topico.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+            <a href="{% url 'reunioes:topico_delete' topico.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+        </div>
     </div>
     <ul class="list-group list-group-flush">
         {% for ponto in topico.pontos.all %}
-        <li class="list-group-item">
-            <p>{{ ponto.descricao|linebreaksbr }}</p>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+                <p>{{ ponto.descricao|linebreaksbr }}</p>
             {% if ponto.demanda %}
                 <small class="d-block">
                     <strong>Demanda associada:</strong> 
-                    <a href="#">{{ ponto.demanda.atividade }}</a>
+                    <a href="{% url 'demandas:demanda-detail' ponto.demanda.pk %}">{{ ponto.demanda.atividade }}</a>
                     <span class="badge bg-info text-dark">{{ ponto.status }}</span>
                 </small>
             {% else %}
                 <small class="text-muted">Sem demanda associada.</small>
             {% endif %}
+            </div>
+            <div class="btn-group-vertical ms-3" style="min-width: 75px;">
+                <a href="{% url 'reunioes:ponto_update' ponto.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                <a href="{% url 'reunioes:ponto_delete' ponto.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+            </div>
         </li>
         {% empty %}
         <li class="list-group-item">Nenhum ponto de discussão para este tópico.</li>
         {% endfor %}
     </ul>
+    <div class="card-footer">
+        <a href="{% url 'reunioes:ponto_create' topico.pk %}" class="btn btn-sm btn-success">Adicionar Ponto</a>
+    </div>
 </div>
 {% empty %}
 <p>Nenhum tópico para esta reunião.</p>

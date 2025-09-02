@@ -1,0 +1,21 @@
+{% extends "reunioes/base.html" %}
+
+{% block title %}Confirmar Exclusão de Ponto - Gerenciador de Reuniões{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Confirmar Exclusão de Ponto</h1>
+    <div class="card bg-light border-danger">
+        <div class="card-body">
+            <p class="card-text">Você tem certeza que deseja deletar o ponto:</p>
+            <blockquote class="blockquote">
+                <p>{{ ponto.descricao }}</p>
+            </blockquote>
+            <p class="text-danger">Esta ação não pode ser desfeita.</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sim, tenho certeza</button>
+                <a href="{% url 'reunioes:reuniao_detail' ponto.topico.reuniao.pk %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

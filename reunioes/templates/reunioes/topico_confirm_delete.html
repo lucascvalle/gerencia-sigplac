@@ -1,0 +1,18 @@
+{% extends "reunioes/base.html" %}
+
+{% block title %}Confirmar Exclusão de Tópico - Gerenciador de Reuniões{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Confirmar Exclusão de Tópico</h1>
+    <div class="card bg-light border-danger">
+        <div class="card-body">
+            <p class="card-text">Você tem certeza que deseja deletar o tópico <strong>"{{ topico.titulo }}"</strong>?</p>
+            <p class="text-danger">Esta ação não pode ser desfeita. Todos os pontos de discussão associados a este tópico também serão excluídos.</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sim, tenho certeza</button>
+                <a href="{% url 'reunioes:reuniao_detail' topico.reuniao.pk %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

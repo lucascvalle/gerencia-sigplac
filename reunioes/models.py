@@ -62,5 +62,5 @@ class Ponto(models.Model):
     @property
     def status(self):
         if self.demanda:
-            return self.demanda.get_andamento_display()
+            return self.demanda.get_situacao_display()
         return "Não aplicável"
