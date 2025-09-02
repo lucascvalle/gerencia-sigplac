@@ -22,7 +22,7 @@ class Reuniao(models.Model):
         return f"{self.data.strftime('%d/%m/%Y')} - {self.titulo}"
 
     def get_absolute_url(self):
-        return reverse('reuniao_detail', kwargs={'pk': self.pk})
+        return reverse('reunioes:reuniao_detail', kwargs={'pk': self.pk})
 
 
 class Topico(models.Model):
