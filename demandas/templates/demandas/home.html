@@ -7,12 +7,12 @@
 
     <div class="row">
         <!-- Card de Demandas -->
-        <div class="col-lg-6 mb-4">
+        <div class="col-lg-12 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Gerenciamento de Demandas</h5>
                     <div class="row">
-                        <div class="col-6 mb-3">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
                             <div class="card text-white bg-primary">
                                 <div class="card-body text-center">
                                     <h6 class="card-title">Total</h6>
@@ -20,7 +20,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                            <div class="card text-white bg-secondary">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Backlog</h6>
+                                    <p class="card-text fs-4">{{ demandas_backlog }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
                             <div class="card text-white bg-warning">
                                 <div class="card-body text-center">
                                     <h6 class="card-title">Pendentes</h6>
@@ -28,19 +36,59 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
                             <div class="card text-dark bg-info">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Em Análise</h6>
+                                    <p class="card-text fs-4">{{ demandas_em_analise }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                            <div class="card text-white bg-primary">
                                 <div class="card-body text-center">
                                     <h6 class="card-title">Em Andamento</h6>
                                     <p class="card-text fs-4">{{ demandas_em_andamento }}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                            <div class="card text-white bg-warning">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Em Espera</h6>
+                                    <p class="card-text fs-4">{{ demandas_em_espera }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                            <div class="card text-white bg-info">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Em Teste</h6>
+                                    <p class="card-text fs-4">{{ demandas_em_teste }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                            <div class="card text-white" style="background-color: #6f42c1;">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Em Revisão</h6>
+                                    <p class="card-text fs-4">{{ demandas_em_revisao }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
                             <div class="card text-white bg-success">
                                 <div class="card-body text-center">
-                                    <h6 class="card-title">Concluídas</h6>
+                                    <h6 class="card-title">Resolvidas</h6>
                                     <p class="card-text fs-4">{{ demandas_concluidas }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                            <div class="card text-white bg-danger">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">Rejeitadas</h6>
+                                    <p class="card-text fs-4">{{ demandas_rejeitadas }}</p>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +119,32 @@
                 </div>
                 <div class="card-footer bg-transparent border-top-0 text-center">
                     <a href="{% url 'reunioes:reuniao_list' %}" class="btn btn-secondary">Visualizar Todas as Atas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Demandas Críticas Não Resolvidas</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for demanda in demandas_criticas %}
+                            <a href="{% url 'demandas:demanda-detail' demanda.pk %}" class="list-group-item list-group-item-action status-{{ demanda.situacao }}">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ demanda.atividade }}</h5>
+                                    <small>{{ demanda.data_insercao|date:"d/m/Y" }}</small>
+                                </div>
+                                <p class="mb-1"><strong>Situação:</strong> {{ demanda.get_situacao_display }}</p>
+                                <small><strong>Responsável:</strong> {{ demanda.responsavel|default:"N/A" }}</small>
+                            </a>
+                        {% empty %}
+                            <li class="list-group-item">Nenhuma demanda crítica encontrada.</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>

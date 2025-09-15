@@ -1,0 +1,79 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Gerencia Demandas{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    {% block extra_head %}{% endblock %}
+    <style>
+        .status-backlog { border-left: 5px solid #6c757d; }
+        .status-pendente { border-left: 5px solid #ffc107; }
+        .status-em_analise { border-left: 5px solid #0dcaf0; }
+        .status-em_andamento { border-left: 5px solid #0d6efd; }
+        .status-em_espera { border-left: 5px solid #ffc107; }
+        .status-em_teste { border-left: 5px solid #fd7e14; }
+        .status-em_revisao { border-left: 5px solid #6f42c1; }
+        .status-resolvido { border-left: 5px solid #198754; }
+        .status-rejeitado_cancelado { border-left: 5px solid #dc3545; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'robot-svgrepo-com.svg' %}" alt="Home" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.app_name == 'demandas' %}active{% endif %}" href="{% url 'demandas:demanda-list' %}">Demandas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.app_name == 'reunioes' %}active{% endif %}" href="{% url 'reunioes:reuniao_list' %}">Reuniões</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="navbar-text">Olá, {{ user.username }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'admin:logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link">Sair</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin:login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr('.datepicker', {
+                dateFormat: "d/m/Y",
+                "locale": "pt"
+            });
+        });
+    </script>
+</body>
+</html>

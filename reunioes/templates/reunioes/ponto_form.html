@@ -3,6 +3,10 @@
 
 {% block title %}{{ title }} - Gerenciador de Reuniões{% endblock %}
 
+{% block extra_head %}
+    {{ form.media }}
+{% endblock %}
+
 {% block content %}
     <h1 class="mb-4">{{ title }}</h1>
     <h5 class="text-muted mb-4">Tópico: {{ topico.titulo }}</h5>

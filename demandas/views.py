@@ -21,7 +21,14 @@ class HomePageView(LoginRequiredMixin, TemplateView):
         context['total_demandas'] = Demanda.objects.count()
         context['demandas_pendentes'] = Demanda.objects.filter(situacao='pendente').count()
         context['demandas_em_andamento'] = Demanda.objects.filter(situacao='em_andamento').count()
-        context['demandas_concluidas'] = Demanda.objects.filter(situacao='concluido').count()
+        context['demandas_concluidas'] = Demanda.objects.filter(situacao='resolvido').count()
+        context['demandas_backlog'] = Demanda.objects.filter(situacao='backlog').count()
+        context['demandas_em_analise'] = Demanda.objects.filter(situacao='em_analise').count()
+        context['demandas_em_espera'] = Demanda.objects.filter(situacao='em_espera').count()
+        context['demandas_em_teste'] = Demanda.objects.filter(situacao='em_teste').count()
+        context['demandas_em_revisao'] = Demanda.objects.filter(situacao='em_revisao').count()
+        context['demandas_rejeitadas'] = Demanda.objects.filter(situacao='rejeitado_cancelado').count()
+        context['demandas_criticas'] = Demanda.objects.filter(prioridade='critica').exclude(situacao='resolvido').order_by('data_insercao')
 
         ultima_reuniao = Reuniao.objects.order_by('-data').first()
         context['ultima_reuniao_data'] = ultima_reuniao.data if ultima_reuniao else None
