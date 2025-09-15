@@ -4,7 +4,7 @@ from .models import Demanda
 class DemandaCreateForm(forms.ModelForm):
     class Meta:
         model = Demanda
-        fields = ['atividade']
+        fields = ['atividade', 'categoria', 'prioridade']
 
 class DemandaUpdateForm(forms.ModelForm):
     data_inicio = forms.DateTimeField(
@@ -13,8 +13,8 @@ class DemandaUpdateForm(forms.ModelForm):
         widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'DD/MM/AAAA'}),
         input_formats=['%d/%m/%Y']
     )
-    data_termino = forms.DateTimeField(
-        label="Data de Término",
+    data_prevista = forms.DateTimeField(
+        label="Data Prevista",
         required=False,
         widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'DD/MM/AAAA'}),
         input_formats=['%d/%m/%Y']
@@ -23,4 +23,4 @@ class DemandaUpdateForm(forms.ModelForm):
     class Meta:
         model = Demanda
         fields = '__all__'
-        exclude = ('data_insercao', 'data_inicio', 'data_termino')
+        exclude = ('data_insercao',)

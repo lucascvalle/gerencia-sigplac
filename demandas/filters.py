@@ -10,4 +10,6 @@ class DemandaFilter(django_filters.FilterSet):
             'situacao': ['exact'],
             'responsavel': ['exact'],
             'supervisor': ['exact'],
+            'categoria': ['exact'],
+            'prioridade': ['exact'],
         }

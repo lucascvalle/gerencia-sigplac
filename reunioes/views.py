@@ -9,6 +9,7 @@ from django.views.generic import (
 )
 from .models import Reuniao, Topico, Ponto
 from .forms import ReuniaoForm, TopicoForm, PontoForm
+from .filters import ReuniaoFilter
 
 
 class ReuniaoListView(ListView):
@@ -16,6 +17,16 @@ class ReuniaoListView(ListView):
     template_name = 'reunioes/reuniao_list.html'
     context_object_name = 'reunioes'
     paginate_by = 15
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filter = ReuniaoFilter(self.request.GET, queryset=queryset)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filter
+        return context
 
 
 class ReuniaoDetailView(DetailView):

@@ -23,6 +23,14 @@
                 {{ filter.form.supervisor }}
             </div>
             <div class="col-md-3">
+                <label for="{{ filter.form.categoria.id_for_label }}" class="form-label">{{ filter.form.categoria.label }}</label>
+                {{ filter.form.categoria }}
+            </div>
+            <div class="col-md-3">
+                <label for="{{ filter.form.prioridade.id_for_label }}" class="form-label">{{ filter.form.prioridade.label }}</label>
+                {{ filter.form.prioridade }}
+            </div>
+            <div class="col-md-3">
                 <label for="{{ filter.form.data_insercao_after.id_for_label }}" class="form-label">De:</label>
                 <input type="text" name="{{ filter.form.data_insercao_after.name }}" class="form-control datepicker" id="{{ filter.form.data_insercao_after.id_for_label }}" value="{{ request.GET.data_insercao_after|default:'' }}">
             </div>
@@ -44,6 +52,8 @@
                     <small>{{ demanda.data_insercao|date:"d/m/Y H:i" }}</small>
                 </div>
                 <p class="mb-1"><strong>Situação:</strong> {{ demanda.get_situacao_display }}</p>
+                <p class="mb-1"><strong>Categoria:</strong> {{ demanda.get_categoria_display }}</p>
+                <p class="mb-1"><strong>Prioridade:</strong> {{ demanda.get_prioridade_display }}</p>
                 <small><strong>Responsável:</strong> {{ demanda.responsavel|default:"N/A" }}</small>
             </a>
         {% empty %}

@@ -30,6 +30,10 @@ class TopicoForm(forms.ModelForm):
         }
 
 class PontoForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['demanda'].queryset = self.fields['demanda'].queryset.order_by('atividade')
+
     class Meta:
         model = Ponto
         fields = ['descricao', 'ordem', 'demanda']
